@@ -1,0 +1,25 @@
+version: "3.6"
+
+networks:
+  default:
+    external:
+      name: ttfb
+
+services:
+  logger-server-nodejs:
+    restart: "no"
+    networks:
+      default:
+        aliases:
+          - logger.lc
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.logger.rule=Host(`logger.lc`)
+      - traefik.http.routers.logger.entrypoints=web
+
+  logger-clickhouse:
+    restart: "no"
+    ports:
+      - "8123:8123"
+    volumes:
+      - ./.data/clickhouse:/var/lib/clickhouse:cached

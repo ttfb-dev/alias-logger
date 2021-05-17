@@ -1,0 +1,27 @@
+version: "3.6"
+
+networks:
+  default:
+    external:
+      name: network
+
+volumes:
+  clickhousedb:
+
+services:
+  logger-server-nodejs:
+    container_name: logger-server-nodejs
+    build:
+      context: .
+      dockerfile: ./build/nodejs/Dockerfile
+    restart: "always"
+    image: registry.gitlab.com/aliasgame/logger:node_14
+    env_file: ./build/.env.list
+
+  logger-clickhouse:
+    container_name: logger-database-clickhouse
+    image: yandex/clickhouse-server:21.3.8.76-alpine
+    restart: "always"
+    env_file: ./build/.env.list
+    volumes:
+      - clickhousedb:/var/lib/clickhouse:cached
