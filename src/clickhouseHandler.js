@@ -1,4 +1,4 @@
-const { ClickHouse } = require('clickhouse');
+import { ClickHouse } from 'clickhouse';
 
 const clickhouse = new ClickHouse(
     {
@@ -53,4 +53,4 @@ const insertRow = async (level, source, payload) => {
 }
 
 
-module.exports = logger;
+export default logger;
