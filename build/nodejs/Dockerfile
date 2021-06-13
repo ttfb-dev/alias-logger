@@ -5,6 +5,7 @@ WORKDIR /usr/src/app
 
 COPY src ./src
 
+COPY .npmrc             .npmrc
 COPY package.json       package.json
 COPY yarn.lock          yarn.lock
 
