@@ -8,6 +8,7 @@
   "scripts": {
     "start": "node src/index.js"
   },
+  "type": "module",
   "dependencies": {
     "@ttfb/aliasgame": "^0.0.25",
     "body-parser": "^1.19.0",
