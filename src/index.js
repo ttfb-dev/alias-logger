@@ -31,6 +31,11 @@ app.post('/service/:service/critical', async (req, res) => {
     res.status(200).send();
 })
 
+app.post('/analytics/service/:service/action/:action', async (req, res) => {
+    logger.analytics(req.params.service, req.params.action, req.body);
+    res.status(200).send();
+})
+
 app.get('/', async (req, res) => {
     res.status(200).send();
 })

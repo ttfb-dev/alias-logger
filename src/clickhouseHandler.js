@@ -39,6 +39,9 @@ const logger = {
     critical: async (source, payload) => {
         await insertRow('critical', source, payload);
     },
+    analytics: async (platform, action, payload) => {
+        await insertRow('analytics', platform, { action, ...payload });
+    },
 }
 
 const insertRow = async (level, source, payload) => {
