@@ -29,7 +29,7 @@ const analytics = {
   },
 }
 
-const insertRow = async (platform, action, user_id, payload) => {
+const insertRow = async (platform, action, user_id, payload = {}) => {
   await clickhouse.insert(insertQuery, [{
     platform,
     event: action,
