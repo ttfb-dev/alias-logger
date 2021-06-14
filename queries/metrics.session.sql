@@ -4,5 +4,5 @@ SELECT
   user_id,
   created_at,
   payload
-FROM analytics
+FROM metrics
 ORDER BY created_at DESC 
