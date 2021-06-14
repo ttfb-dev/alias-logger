@@ -21,22 +21,20 @@ const clickhouse = new ClickHouse(
   }
 );
 
-const insertQuery = `INSERT INTO analytics VALUES (platform, event, user_id, payload)`
+const insertQuery = `INSERT INTO analytics (platform, event, user_id, payload)`
 
 const analytics = {
   write: async (platform, action, user_id, payload) => {
-    console.log(`write ${platform}, ${action}, ${user_id}, ${payload}`)
     await insertRow(platform, action, user_id, payload);
   },
 }
 
 const insertRow = async (platform, action, user_id, payload) => {
-  console.log(`insert row ${platform}, ${action}, ${user_id}, ${payload}`);
   await clickhouse.insert(insertQuery, [{
-    platform: 'vk-miniapp',
-    event: 'app.open',
-    user_id: 1850436,
-    payload: JSON.stringify({})
+    platform: platform,
+    event: action,
+    user_id: user_id,
+    payload: JSON.stringify(payload ?? {})
   }]).toPromise();
 }
 
