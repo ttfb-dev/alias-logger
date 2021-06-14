@@ -25,6 +25,7 @@ const insertQuery = `INSERT INTO analytics VALUES (generateUUIDv4(), platform, e
 
 const analytics = {
   write: async (platform, action, user_id, payload) => {
+    console.log(`write ${platform}, ${action}, ${user_id}, ${payload}`)
     await insertRow(platform, action, user_id, payload);
   },
 }
