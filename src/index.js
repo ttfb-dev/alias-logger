@@ -1,8 +1,8 @@
 import express from 'express'
 import bodyParser from 'body-parser'
-import logger from './loggerHandler'
+import logger from './loggerHandler.js'
 import notifier from './notifier.js'
-import analytics from './analyticsHandler'
+import analytics from './analyticsHandler.js'
 
 const app = express()
 const port = 80
