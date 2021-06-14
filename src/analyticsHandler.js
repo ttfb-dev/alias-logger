@@ -21,7 +21,7 @@ const clickhouse = new ClickHouse(
   }
 );
 
-const insertQuery = `INSERT INTO analytics VALUES (generateUUIDv4(), platform, action, user_id, payload)`
+const insertQuery = `INSERT INTO analytics VALUES (generateUUIDv4(), platform, event, user_id, payload)`
 
 const analytics = {
   write: async (platform, action, user_id, payload) => {
@@ -32,7 +32,7 @@ const analytics = {
 const insertRow = async (platform, action, user_id, payload) => {
   await clickhouse.insert(insertQuery, [{
     platform,
-    action,
+    event: action,
     user_id,
     payload: JSON.stringify(payload)
   }]).toPromise();
