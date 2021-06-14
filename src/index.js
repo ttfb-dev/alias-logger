@@ -34,9 +34,8 @@ app.post('/service/:service/critical', async (req, res) => {
     res.status(200).send();
 })
 
-app.post('/analytics/service/:service/action/:action/user_id/:user_id', async (req, res) => {
-    console.log(req.params);
-    await analytics.write(req.params.service, req.params.action, req.params.user_id, req.body);
+app.post('/analytics/service/:platform/action/:event/user_id/:user_id', async (req, res) => {
+    await analytics.write(req.params.platform, req.params.event, req.params.user_id, req.body);
     res.status(200).send();
 })
 

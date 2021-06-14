@@ -29,12 +29,13 @@ const analytics = {
   },
 }
 
-const insertRow = async (platform, action, user_id, payload = {}) => {
+const insertRow = async (platform, action, user_id, payload) => {
+  console.log(`insert row ${platform}, ${action}, ${user_id}, ${payload}`);
   await clickhouse.insert(insertQuery, [{
     platform,
     event: action,
     user_id,
-    payload: JSON.stringify(payload)
+    payload: JSON.stringify(payload ?? {})
   }]).toPromise();
 }
 
