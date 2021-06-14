@@ -1,7 +1,8 @@
 import express from 'express'
 import bodyParser from 'body-parser'
-import logger from './clickhouseHandler.js'
+import logger from './loggerHandler'
 import notifier from './notifier.js'
+import analytics from './analyticsHandler'
 
 const app = express()
 const port = 80
@@ -33,8 +34,8 @@ app.post('/service/:service/critical', async (req, res) => {
     res.status(200).send();
 })
 
-app.post('/analytics/service/:service/action/:action', async (req, res) => {
-    await logger.analytics(req.params.service, req.params.action, req.body);
+app.post('/analytics/service/:service/action/:action/user_id/:user_id', async (req, res) => {
+    await analytics.write(req.params.service, req.params.action, req.params.user_id, req.body);
     res.status(200).send();
 })
 
