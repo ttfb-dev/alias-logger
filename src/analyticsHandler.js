@@ -25,7 +25,7 @@ const insertQuery = `INSERT INTO analytics (platform, event, user_id, payload, o
 
 const analytics = {
   write: async (platform, event, user_id, data) => {
-    const { os, browser, device, ...payload } = data;
+    const { os, browser, device, ua, ...payload } = data;
     await insertRow(platform, event, user_id, payload, os, browser, device);
   },
 }
