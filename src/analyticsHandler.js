@@ -21,16 +21,16 @@ const clickhouse = new ClickHouse(
   }
 );
 
-const insertQuery = `INSERT INTO analytics (platform, event, user_id, payload, os, browser, device, ip)`
+const insertQuery = `INSERT INTO analytics (platform, event, user_id, payload, os, browser, device)`
 
 const analytics = {
   write: async (platform, event, user_id, data) => {
-    const { os, browser, device, ip, ...payload } = data;
-    await insertRow(platform, event, user_id, payload, os, browser, device, ip);
+    const { os, browser, device, ...payload } = data;
+    await insertRow(platform, event, user_id, payload, os, browser, device);
   },
 }
 
-const insertRow = async (platform, event, user_id, payload, os, browser, device, ip) => {
+const insertRow = async (platform, event, user_id, payload, os, browser, device) => {
   const row = {
     platform,
     event,
@@ -38,8 +38,7 @@ const insertRow = async (platform, event, user_id, payload, os, browser, device,
     payload: JSON.stringify(payload ?? {}),
     os: JSON.stringify(os ?? {}),
     browser: JSON.stringify(browser ?? {}),
-    device: JSON.stringify(device ?? {}),
-    ip: ip ?? null
+    device: JSON.stringify(device ?? {})
   };
   try {
     await clickhouse.insert(insertQuery, [row]).toPromise();
