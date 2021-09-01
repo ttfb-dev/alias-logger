@@ -31,7 +31,7 @@ const analytics = {
 }
 
 const insertRow = async (platform, event, user_id, payload, os, browser, device, ip) => {
-  await clickhouse.insert(insertQuery, [{
+  const row = {
     platform,
     event,
     user_id,
@@ -39,8 +39,13 @@ const insertRow = async (platform, event, user_id, payload, os, browser, device,
     os: JSON.stringify(os ?? {}),
     browser: JSON.stringify(browser ?? {}),
     device: JSON.stringify(device ?? {}),
-    ip
-  }]).toPromise();
+    ip: ip ?? null
+  };
+  try {
+    await clickhouse.insert(insertQuery, [row]).toPromise();
+  } catch ({message}) {
+    console.error('analytics instert row failed', row);
+  }
 }
 
 
