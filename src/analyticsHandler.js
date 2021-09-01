@@ -25,12 +25,12 @@ const insertQuery = `INSERT INTO analytics (platform, event, user_id, payload, o
 
 const analytics = {
   write: async (platform, event, user_id, data) => {
-    const { os, browser, device, ua, ...payload } = data;
-    await insertRow(platform, event, user_id, payload, os, browser, device);
+    const { os, browser, device, ua, engine, cpu, ...payload } = data;
+    await insertRow(platform, event, user_id, payload, os, browser, device, engine, cpu);
   },
 }
 
-const insertRow = async (platform, event, user_id, payload, os, browser, device) => {
+const insertRow = async (platform, event, user_id, payload, os, browser, device, engine, cpu) => {
   const row = {
     platform,
     event,
@@ -38,7 +38,9 @@ const insertRow = async (platform, event, user_id, payload, os, browser, device)
     payload: JSON.stringify(payload ?? {}),
     os: JSON.stringify(os ?? {}),
     browser: JSON.stringify(browser ?? {}),
-    device: JSON.stringify(device ?? {})
+    device: JSON.stringify(device ?? {}),
+    engine: JSON.stringify(engine ?? {}),
+    cpu: JSON.stringify(cpu ?? {})
   };
   try {
     await clickhouse.insert(insertQuery, [row]).toPromise();
