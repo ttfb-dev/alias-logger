@@ -5,4 +5,5 @@ SELECT
   created_at,
   payload
 FROM metrics
-ORDER BY created_at DESC 
+ORDER BY created_at DESC
+LIMIT 100
