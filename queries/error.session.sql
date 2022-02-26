@@ -1,6 +1,10 @@
-SELECT 
-  level, 
-  source, 
-  JSONExtractString(payload, 'method') AS method, 
+SELECT level,
+  source,
+  created_at,
+  JSONExtractString(payload, 'message') AS message,
+  JSONExtractString(payload, 'method') AS method,
   payload
-FROM log WHERE level = 'error' LIMIT 100
+FROM log
+WHERE level = 'error'
+ORDER BY created_at DESC
+LIMIT 100

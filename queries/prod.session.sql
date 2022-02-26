@@ -1,8 +1,8 @@
-SELECT 
-  level, 
-  source, 
-  created_at, 
-  JSONExtractString(payload, 'message') AS message, 
+SELECT level,
+  source,
+  created_at,
+  JSONExtractString(payload, 'message') AS message,
+  JSONExtractString(payload, 'status') AS status,
   payload,
   toDate(created_at) as date
 FROM log
